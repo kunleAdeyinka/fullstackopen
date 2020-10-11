@@ -26,25 +26,44 @@ const App = (props) => {
     4: 0,
     5: 0
   })
-  //console.log(selected)
+
 
   const handleVote = () => {
     const copy = {
       ...points,
     }
     copy[selected] += 1
-
     setPoints(copy)
   }
 
+  const Header = props => <h1>{props.text}</h1>
+
+  const ShowMaxVote = () => {
+    let key = Object.keys(points).reduce((a, b) => points[a] > points[b] ? a : b)
+    console.log('max is ', key)
+    return (
+      <div>
+        <p>
+          {anecdotes[key]} <br />
+          has {" "} {points[key]} {" "} votes
+        </p>
+      </div>
+    )
+  }
+
+
+
   return (
     <div>
+      <Header text="Anecdote of the day" />
       {props.anecdotes[selected]}
       <br />
       has {points[selected]} votes <br />
       <Button text="vote" handleClick={handleVote} />
       <Button text="next anecdote" handleClick={() => setSelected(Math.floor(Math.random() * anecdotes.length))} />
-
+      <br />
+      <Header text="Anecdote with most votes" />
+      <ShowMaxVote />
     </div>
   )
 }
