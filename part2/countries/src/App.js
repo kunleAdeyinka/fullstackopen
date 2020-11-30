@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import CountryForm from './components/CountryForm'
+import CountryList from './components/CountryList'
+import CountryDetail from './components/CountryDetail'
 
 const App = () => {
   const [countries, setCountries] = useState([])
@@ -28,28 +30,17 @@ const App = () => {
   }
 
 
-
-
   return (
     <div>
       <CountryForm handleKeyUp={handleKeyUp} />
+      <br />
       {filteredSearch.length > 10 ? (
         <p>Too may matches, specify another filter</p>
       ) : (
           filteredSearch.length === 1 ? (
-            filteredSearch.map((country) => {
-              return (
-                <div key={country.name}>
-                  <h1>{country.name}</h1>
-                  <p>capital {country.capital}</p>
-                  <p>population {country.population}</p>
-                  <h2>languages</h2>
-                  {country.languages.map((language) => <li key={language.name}>{language.name}</li>)}
-                  <img src={country.flag} alt={country.flag} style={{ width: '200px', height: '300px' }} />
-                </div>
-              )
-            })
-          ) : (filteredSearch.map((country) => <p key={country.name}>{country.name}</p>))
+            <CountryDetail filteredSearch={filteredSearch} />
+          ) :
+            (<CountryList filteredSearch={filteredSearch} />)
         )}
     </div>
   )
