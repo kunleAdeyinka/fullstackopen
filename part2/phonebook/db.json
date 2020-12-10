@@ -29,6 +29,11 @@
       "name": "Bruce Banner",
       "number": "210-348-8994",
       "id": 6
+    },
+    {
+      "name": "Thor Odinson",
+      "number": "000-111-0101",
+      "id": 7
     }
   ]
 }
