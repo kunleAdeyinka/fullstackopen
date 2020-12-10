@@ -23,13 +23,28 @@ const App = () => {
 
   const addPerson = (e) => {
     e.preventDefault();
-    if (persons.some(person => person.name === newName)) {
+    if (!newName) {
+      alert(`name cannot be empty`)
+    } else if (!newPhone) {
+      alert(`numberBruce cannot be empty`)
+    } else if (persons.some(person => person.name === newName)) {
       alert(`${newName} is already added to phonebook`)
     } else {
-      let personObj = {}
-      personObj.name = newName
-      personObj.number = newPhone
-      setPersons(persons => persons.concat(personObj))
+      let lastId = persons[persons.length - 1].id
+      lastId++
+
+      let personObj = {
+        name: newName,
+        number: newPhone,
+        id: lastId
+      }
+
+      axios.post('http://localhost:3001/persons', personObj).then(response => {
+        setPersons(persons => persons.concat(personObj))
+        setNewName('')
+        setNewPhone('')
+      })
+
     }
   }
 
