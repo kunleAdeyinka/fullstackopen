@@ -27,7 +27,7 @@ const App = () => {
     if (!newName) {
       alert(`name cannot be empty`)
     } else if (!newPhone) {
-      alert(`numberBruce cannot be empty`)
+      alert(`number cannot be empty`)
     } else if (persons.some(person => person.name === newName)) {
       alert(`${newName} is already added to phonebook`)
     } else {
@@ -67,6 +67,16 @@ const App = () => {
     setFilteredPersons(filteredPersons)
   }
 
+  const deletePerson = (id) => {
+    const personToDelete = persons.find(person => person.id === id)
+
+    if (window.confirm(`Delete ${personToDelete.name}`)) {
+      personService.deletePerson(personToDelete.id).then(response => {
+        setPersons(persons.filter(person => person.id !== id))
+      })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -79,7 +89,7 @@ const App = () => {
 
       <h2>Numbers</h2>
 
-      <Persons persons={persons} />
+      <Persons persons={persons} deletePerson={deletePerson} />
     </div>
   )
 }
