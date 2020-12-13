@@ -29,7 +29,12 @@ const App = () => {
     } else if (!newPhone) {
       alert(`number cannot be empty`)
     } else if (persons.some(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one`)) {
+        const personToUpdate = persons.find(person => person.name === newName)
+        personService.updatePerson(personToUpdate.id).then(response => {
+          setPersons(persons.map(person => person.name === newName ? { ...person, number: newPhone } : person))
+        })
+      }
     } else {
       let lastId = persons[persons.length - 1].id
       lastId++
