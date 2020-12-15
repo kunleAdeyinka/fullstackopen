@@ -2,7 +2,7 @@ import React from 'react';
 
 const PersonForm = ({ changeName, changePhoneNum, addPerson }) => {
     return (
-        <form>
+        <form onSubmit={addPerson}>
             <div>
                 name: <input onChange={changeName} />
             </div>
@@ -12,7 +12,7 @@ const PersonForm = ({ changeName, changePhoneNum, addPerson }) => {
             </div>
             <div>
                 <br />
-                <button type="submit" onClick={addPerson}>add</button>
+                <button type="submit">add</button>
             </div>
         </form>
 
