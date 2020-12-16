@@ -6,7 +6,20 @@ import Persons from './components/Persons'
 
 import personService from './services/persons'
 
-const Notification = ({ message }) => {
+const Notification = ({ message, msgStyle }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="notification">
+      {message}
+    </div>
+  )
+}
+
+
+const ErrorNotifications = ({ message }) => {
   if (message === null) {
     return null
   }
@@ -24,15 +37,13 @@ const App = () => {
   const [newPhone, setNewPhone] = useState('')
   const [filteredPersons, setFilteredPersons] = useState([])
   const [notificationMsg, setNotifictionMsg] = useState(null)
+  const [errorMsg, setErrorMsg] = useState(null)
 
   useEffect(() => {
     personService.getAll().then(initialPersons => {
-      console.log('promised fulfilled')
       setPersons(initialPersons)
     })
   }, [])
-
-  console.log('render', persons.length, 'persons')
 
 
   const addPerson = (e) => {
@@ -96,15 +107,24 @@ const App = () => {
     if (window.confirm(`Delete ${personToDelete.name}`)) {
       personService.deletePerson(personToDelete.id).then(response => {
         setPersons(persons.filter(person => person.id !== id))
+      }).catch(error => {
+        setErrorMsg(`Information of ${personToDelete.name} has already been removed from the server`)
+        setTimeout(() => {
+          setErrorMsg(null)
+        }, 5000)
+        setPersons(persons.filter(person => person.id !== id))
       })
     }
   }
+
 
   return (
     <div>
       <h2>Phonebook</h2>
 
       <Notification message={notificationMsg} />
+
+      <ErrorNotifications message={errorMsg} />
 
       <Filter handleKeyUp={handleKeyUp} persons={filteredPersons} />
 

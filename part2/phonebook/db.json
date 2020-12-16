@@ -21,24 +21,9 @@
       "id": 4
     },
     {
-      "name": "Tony Stark",
-      "number": "459-884-0987",
+      "name": "Freddy Kreuger",
+      "number": "303-123-875",
       "id": 5
-    },
-    {
-      "name": "Bruce Banner",
-      "number": "210-345-5634",
-      "id": 6
-    },
-    {
-      "name": "Clint Barton",
-      "number": "605-757-8383",
-      "id": 7
-    },
-    {
-      "name": "Natasha Romanov",
-      "number": "712-833-9303",
-      "id": 8
     }
   ]
 }
